@@ -7,6 +7,8 @@ with open('monsters.json', 'r') as inputFile:
 
 parsedList = []
 for obj in unParsedList['results']:
-    parsedList.append(obj)
+    requestObj = requests.get(obj['url'])
+    parsedList.append(requestObj.json())
 
-print(len(parsedList))
+with open("monstersComplete.json", "w") as output:
+    json.dump(parsedList, output)
