@@ -38,5 +38,4 @@ while groupRating > 0:
     groupRating -= float(targetRating)
 
 for obj in encounterList:
-    #print(obj["name"] + " - " + obj["challenge_rating"])
     print(obj)
