@@ -1,14 +1,14 @@
 import json
 import random
 
-groupRating = 10
+groupRating = 15
 
 
 def fixList(fullList, currentRating):
-    newList = {}
+    newList = []
     for number in fullList:
         if(float(number) <= currentRating):
-            newList.update({number: fullList[number]})
+            newList.append(number)
     return newList
 
 
@@ -24,10 +24,10 @@ def findMonster(targetRating, monsterJSON):
 with open('crSortedMonsters.json', 'r') as input:
     sortedList = json.load(input)
 
-sortedList = fixList(sortedList, groupRating)
+
 challengeRatings = []
 for obj in sortedList:
-    if float(obj) > 0:
+    if float(obj) < groupRating and float(obj) != 0:
         challengeRatings.append(obj)
 
 encounterList = []
@@ -35,7 +35,7 @@ while groupRating > 0:
     targetRating = random.choice(challengeRatings)
     encounterList.append(findMonster(targetRating, sortedList))
     groupRating -= float(targetRating)
-    fixList(sortedList, groupRating)
+    challengeRatings = fixList(challengeRatings, groupRating)
 
 sum = 0
 for obj in encounterList:
